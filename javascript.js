@@ -25,14 +25,34 @@ console.log("http:"+BASE_URL+ENDPOINT+"?q=$"+userInput+"&limit="+LIMIT+"&rating=
 
 // var queryURL = "http:"+BASE_URL+ENDPOINT+"?q=$"+userInput+"&limit="+LIMIT+"&rating="+RATING+"&api_key="+PUBLIC_KEY;
 
+// Prevents form from refreshing when enter is pressed
+$("form").submit(function(event){
+  event.preventDefault();
+});
 
-$(document).on("click", "#newAnimal", function(){
+// Code for Enter button to add new animal
+$('#textBoxInput').bind("enterKey",function(e){
+      
+   addButton();
+
+});
+$('#textBoxInput').keyup(function(e){
+    if(e.keyCode == 13)
+    {
+        $(this).trigger("enterKey");
+    }
+});
+
+
+$(document).on("click", "#newAnimal", function(e){
     // newButtonInput = $("#textBoxInput").val();
     // $("#textBoxInput").val("testing");
 
     // Get value inside textbox
-    newButtonInput = $("#textBoxInput").val();
+    // newButtonInput = $("#textBoxInput").val().trim();
     console.log(newButtonInput);
+    
+    
     addButton();
     
   });
@@ -89,6 +109,8 @@ function gifCall(){
 
 function addButton(){
   var button2 = $("<button>");
+  // Get value inside the text box. Trim is to eliminate the extra spaces after input
+  newButtonInput = $("#textBoxInput").val().trim();
   button2.text(newButtonInput);
   // not working correctly
   button2.attr("data-animal", newButtonInput);
@@ -102,6 +124,7 @@ function addButton(){
 } // end of addButton
 
 function clicked(e){
+
   clearGifArea();
   userInput = $(e.target).data("animal");
   queryURL = "https:"+BASE_URL+ENDPOINT+"?q=$"+userInput+"&limit="+LIMIT+"&api_key="+PUBLIC_KEY;
