@@ -56,7 +56,7 @@ for(var i = 0; i < topics.length; i++){
     // adding bootstrap button classes
     animalButton.addClass("btn");
     animalButton.addClass("btn-primary");
-    
+
     animalButton.attr("data-animal", topics[i]);
     console.log("new button");
     $("#topicRow").append(animalButton);
@@ -104,7 +104,7 @@ function addButton(){
 function clicked(e){
   clearGifArea();
   userInput = $(e.target).data("animal");
-  queryURL = "http:"+BASE_URL+ENDPOINT+"?q=$"+userInput+"&limit="+LIMIT+"&api_key="+PUBLIC_KEY;
+  queryURL = "https:"+BASE_URL+ENDPOINT+"?q=$"+userInput+"&limit="+LIMIT+"&api_key="+PUBLIC_KEY;
   // "&rating="+RATING
   gifCall();
 
