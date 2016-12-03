@@ -64,6 +64,23 @@ $(document).on("click", ".gifButton", function(e){
   
 });
 
+// Pause/Play gif on click
+$(document).on("click", ".imageGif", function(e){
+  
+  var state = $(this).attr("data-state");
+  // console.log(state);
+  if(state === "animate"){
+    $(this).attr("src", $(this).data("still"));
+    $(this).attr("data-state", "still");
+  }
+  else{
+    $(this).attr("src", $(this).data("animate"));
+    $(this).attr("data-state", "animate");
+  }
+  
+  
+});
+
 
   
 var topics = ["dog", "cat", "rabbit", "hamster", "skunk", "goldfish", "ferret", "bird"];
@@ -78,6 +95,7 @@ for(var i = 0; i < topics.length; i++){
     animalButton.addClass("btn-primary");
 
     animalButton.attr("data-animal", topics[i]);
+
     console.log("new button");
     $("#topicRow").append(animalButton);
 } // end of adding buttons loop
@@ -93,7 +111,14 @@ function gifCall(){
 
       for(var x = 0; x < LIMIT; x++){
         var newDiv = $("<div>");
-        newDiv.append('<img src="' + responseGIPHY.data[x].images.fixed_height_downsampled.url + '">');
+        var newImage = $("<img>")
+        newImage.attr("src", responseGIPHY.data[x].images.fixed_height_downsampled.url);
+        newImage.attr("data-still", responseGIPHY.data[x].images.fixed_height_still.url);
+        newImage.attr("data-animate", responseGIPHY.data[x].images.fixed_height_downsampled.url);
+        newImage.attr("data-state", "animate");
+        newImage.addClass("imageGif");
+        // newDiv.append('<img src="' + responseGIPHY.data[x].images.fixed_height_downsampled.url + '">');
+        newDiv.append(newImage);
         newDiv.prepend("<h4>Rating: " + responseGIPHY.data[x].rating + "</h4>");
 
         // $(".gifArea").append('<img src="' + responseGIPHY.data[x].images.fixed_height_downsampled.url + '">');
